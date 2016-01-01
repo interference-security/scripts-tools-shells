@@ -88,8 +88,6 @@ for wp_password in pass_list:
         if len(wp_jetpack_protect_num)>=1:
             br.form['jetpack_protect_num'] = wp_jetpack_protect_num
         if args.verbose:
-            print "[+] Submitting form with following details:"
-        if args.verbose:
             print "[-] Trying: " + wp_username + " : " + wp_password
         br.submit()
         #print br.response().read()
