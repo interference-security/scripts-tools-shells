@@ -15,7 +15,7 @@ f = open(sys.argv[1],"r")
 all_ips = f.readlines()
 for ip_addr in all_ips:
 	API_URL = "https://www.censys.io/api/v1"
-    #Visit https://www.censys.io/account to get UID and SECRET
+	#Visit https://www.censys.io/account to get UID and SECRET
 	UID = "YOUR_UID_OR_API_ID_HERE"
 	SECRET = "YOUR_SECRET_HERE"
 	ip_addr = (ip_addr.replace("\r","")).replace("\n","")
