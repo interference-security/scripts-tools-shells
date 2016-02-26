@@ -5,7 +5,7 @@
 
 #Data source: https://www.censys.io/
 
-#Author: Inteference Security
+#Author: Interference Security
 
 import sys
 import json
