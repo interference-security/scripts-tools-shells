@@ -39,9 +39,9 @@ for i in data:
 		i = (i.replace("\r","")).replace("\n","")
 		if args.verbose:
 			print "[-] Trying: " + i
-		r = requests.get(target+"/wp-content/plugins/"+i+"/", verify=False)
+		r = requests.get(target+"/wp-content/plugins/"+i+"/", verify=False, allow_redirects=False)
 		sc = r.status_code
-		if sc != 404 and sc != 500 and sc != 403:
+		if sc != 404 and sc != 500 and sc != 403 and sc != 301 and sc != 302:
 			print i + " : " + str(sc) + " : " + target + "/wp-content/plugins/" + i + "/"
 			if args.outfile:
 				f = open(args.outfile, "a")
