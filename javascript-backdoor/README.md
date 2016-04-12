@@ -9,7 +9,7 @@ http://en.wooyun.io/2016/01/18/JavaScript-Backdoor.html
 
 ##Attacker machine
 
-powershell.exe -ExecutionPolicy Bypass -File JSRat.ps1
+```powershell.exe -ExecutionPolicy Bypass -File JSRat.ps1```
 
 ##Important
 
