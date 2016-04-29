@@ -4,3 +4,4 @@ powershell -ExecutionPolicy Bypass file.ps1
 
 . .\file.ps1
 
+powershell.exe -NoP -sta -NonI -W Hidden -Enc ENCODED_BASE64_PAYLOAD
