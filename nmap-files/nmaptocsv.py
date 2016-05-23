@@ -294,7 +294,6 @@ def parse(fd) :
 	
 	lines = [l.rstrip() for l in fd.readlines()]
 	for line in lines:
-		
 		# 1st case: 	Nmap Normal Output
 		#-- 1st action: Grab the IP
 		IP = p_ip.search(line)
@@ -321,7 +320,12 @@ def parse(fd) :
 			protocol = str(port.group('protocol'))
 			service = str(port.group('service'))
 			version = str(port.group('version'))
-			
+			version = re.sub(r'syn-ack ttl \d+ ', "", version)
+			version = re.sub(r'syn-ack ttl \d+', "", version)
+			version = re.sub(r'udp-response ttl \d+ ', "", version)
+			version = re.sub(r'udp-response ttl \d+', "", version)
+			if (len(version)==0):
+				version = " "
 			new_port = Port(number, protocol, service, version )
 			
 			last_host.add_port(new_port)
