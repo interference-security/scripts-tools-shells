@@ -21,7 +21,7 @@ except:
     sys.exit(1)
 
 urls = []
-if sys.len>=2:
+if len(sys.argv)>=2:
     f = open(sys.argv[1], "r")
     data = f.readlines()
     del urls[:]
