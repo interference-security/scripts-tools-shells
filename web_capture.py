@@ -29,7 +29,7 @@ if sys.len>=2:
         test_url = (test_url.replace("\r","")).replace("\n","")
         urls.append(test_url)
 
-#driver = webdriver.PhantomJS()
+#driver = webdriver.PhantomJS("/path/to/phantomjs/binary/file")
 driver = webdriver.Firefox()
 count = 0;
 for myurl in urls:
