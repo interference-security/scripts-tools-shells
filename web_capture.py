@@ -29,7 +29,12 @@ if len(sys.argv)>=2:
         test_url = (test_url.replace("\r","")).replace("\n","")
         urls.append(test_url)
 
+#https://github.com/ariya/phantomjs
 #driver = webdriver.PhantomJS("/path/to/phantomjs/binary/file")
+
+#https://sites.google.com/a/chromium.org/chromedriver/downloads
+#driver = webdriver.Chrome("/path/to/chromedriver/binary/file")
+
 driver = webdriver.Firefox()
 count = 0;
 for myurl in urls:
