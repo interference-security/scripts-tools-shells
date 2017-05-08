@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+#Source: https://github.com/interference-security/scripts-tools-shells/blob/master/nmap-ip-port-service-info.py
+#Author: Interference Security
+
+#Usage: nmap-ip-port-service-info.py [-h] -f INPUTFILE [-o OUTFILE]
+#Example: nmap-ip-port-service-info.py -f input_nmap.xml -o output_file.csv
+
 try:
     import sys
     import argparse
@@ -15,7 +21,8 @@ except:
 parser = argparse.ArgumentParser(description="Nmap IP:PORT")
 
 #Script command line options
-parser.add_argument('-f', '--inputfile', help='Input Nmap XML file')
+parser.add_argument('-f', '--inputfile', help='Input Nmap XML file', required=True)
+parser.add_argument('-o','--outfile', help='Save output in CSV file')
 
 args = parser.parse_args()
 
@@ -27,7 +34,11 @@ try:
 except:
     pass
 
-def parse_nmap_xml(nmap_xml_file):
+def parse_nmap_xml(nmap_xml_file, output_file):
+    oufile = ""
+    f = None
+    if len(output_file)>0:
+        f = open (output_file, "w")
     nmap_parse = NmapParser.parse_fromfile(nmap_xml_file)
     for host in nmap_parse.hosts:
         #print host.address+":"
@@ -36,18 +47,19 @@ def parse_nmap_xml(nmap_xml_file):
             targets.append(host.address+","+str(service.port)+","+service.service+","+service.banner)
             #print service.servicefp
             #print dir(service)
-    print "IP,Port,Service Name,Service Info"
+    data = "IP,Port,Service Name,Service Info"
+    print data
+    if f != None:
+        f.write(data+"\n")
     for target in targets:
         print target
-
+        if f != None:
+            f.write(target+"\n")
     return targets
 
 #Main function
-if args.inputfile:
-    input_file = args.inputfile.encode('utf-8')
-    targets = parse_nmap_xml(input_file)
-else:
-    print "Missing arguments. Use nmap-ip-port-service-info.py -h"
-
-
-        
+output_file = ""
+input_file = args.inputfile.encode('utf-8')
+if args.outfile:
+    output_file = args.outfile
+targets = parse_nmap_xml(input_file, output_file)
