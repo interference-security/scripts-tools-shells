@@ -18,11 +18,12 @@ except:
     sys.exit(0)
 
 #Description of script
-parser = argparse.ArgumentParser(description="Nmap IP:PORT")
+parser = argparse.ArgumentParser(description="Nmap XML parser and generate CSV ouput")
 
 #Script command line options
-parser.add_argument('-f', '--inputfile', help='Input Nmap XML file', required=True)
+parser.add_argument('-i', '--inputfile', help='Input Nmap XML file', required=True)
 parser.add_argument('-o','--outfile', help='Save output in CSV file')
+#parser.add_argument('-O','--open', help='Show only open ports')
 
 args = parser.parse_args()
 
@@ -43,11 +44,10 @@ def parse_nmap_xml(nmap_xml_file, output_file):
     for host in nmap_parse.hosts:
         #print host.address+":"
         for service in host.services:
-            #targets.append(host.address+","+str(service.port)) #+","+service.service)
-            targets.append(host.address+","+str(service.port)+","+service.service+","+service.banner)
+            targets.append(host.address+","+str(service.port)+","+str(service.state)+","+service.service+","+service.banner)
             #print service.servicefp
             #print dir(service)
-    data = "IP,Port,Service Name,Service Info"
+    data = "IP,Port,State,Service Name,Service Info"
     print data
     if f != None:
         f.write(data+"\n")
