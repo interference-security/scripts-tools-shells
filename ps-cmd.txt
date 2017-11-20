@@ -12,6 +12,6 @@ String to Bytes to Base64:
 Run a domain command from a non-domain computer:
 runas /netonly /user:<domain>\<username> powershell.exe
 
-Execute ShellCode Via InstallUtil x86: https://gist.github.com/subTee/408d980d88515a539672
-Execute ShellCode Via InstallUtil x86: https://gist.github.com/subTee/a06d4ae23e2517566c52
-Mimikatz in JS: https://gist.github.com/subTee/b30e0bcc7645c790fcd993cfd0ad622f
+Execute ShellCode Via InstallUtil x86: https://gist.github.com/interference-security/117dd7a820380b0af13b9ecb8f21ff0c (Dead link: https://gist.github.com/subTee/408d980d88515a539672)
+Execute ShellCode Via InstallUtil x64: Looking for a trusted fork (Dead link: https://gist.github.com/subTee/a06d4ae23e2517566c52)
+Mimikatz in JS: https://gist.github.com/interference-security/276c4b0e9ed53a82b5c4958b4a708023 (Dead link: https://gist.github.com/subTee/b30e0bcc7645c790fcd993cfd0ad622f)
