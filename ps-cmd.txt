@@ -19,7 +19,7 @@ https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/Ins
 Mimikatz in JS: https://gist.github.com/interference-security/276c4b0e9ed53a82b5c4958b4a708023 (Dead link: https://gist.github.com/subTee/b30e0bcc7645c790fcd993cfd0ad622f)
 
 SMB Shares on a list of IPs:
-$UserName = "Domain_here\Username_here" ; $sec_password = "password_here" ; $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $sec_password ; get-content .\ip.txt | foreacho-bject { Write-Host "[*] $_" ; Get-WmiObject -class win32_share -credential $Credentials -ComputerName $_ } 
+$UserName = "Domain_here\Username_here" ; $sec_password = "password_here" ; $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $sec_password ; get-content .\ip.txt | foreach-object { Write-Host "[*] $_" ; Get-WmiObject -class win32_share -credential $Credentials -ComputerName $_ } 
 
 SMB Shares on a single IP
 $UserName = "USERNAME_HERE" ; $sec_password = "PASSWORD_HERE" ; $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $sec_password ; Get-WmiObject -class win32_share -credential $Credentials -ComputerName "YOUR_IP_HERE"
