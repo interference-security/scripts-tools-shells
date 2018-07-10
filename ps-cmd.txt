@@ -21,5 +21,10 @@ Mimikatz in JS: https://gist.github.com/interference-security/276c4b0e9ed53a82b5
 SMB Shares on a list of IPs:
 $UserName = "Domain_here\Username_here" ; $sec_password = "password_here" ; $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $sec_password ; get-content .\ip.txt | foreach-object { Write-Host "[*] $_" ; Get-WmiObject -class win32_share -credential $Credentials -ComputerName $_ } 
 
-SMB Shares on a single IP
+SMB Shares on a single IP:
 $UserName = "USERNAME_HERE" ; $sec_password = "PASSWORD_HERE" ; $Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $sec_password ; Get-WmiObject -class win32_share -credential $Credentials -ComputerName "YOUR_IP_HERE"
+
+Powershell remote session:
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
+$cred=Get-Credential "$env:USERDOMAIN\$env:USERNAME"
+Enter-PSSession -ComputerName 192.168.1.2 -Credential $cred
