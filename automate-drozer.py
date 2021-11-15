@@ -13,9 +13,9 @@ drozer_path = sys.argv[2]
 html = "<html><head><title>Report: %s</title></head><body><h1>%s</h1>" % (sys.argv[1],sys.argv[1])
 
 def execute_test(test, pname,e=0):
-	drozer_cmd = drozer_path + ' console connect -c "run ' + test + ' ' + pname
+	drozer_cmd = drozer_path + ' console connect -c "run ' + test + ' ' + pname + '"'
 	if e==1:
-		drozer_cmd = drozer_path + ' console connect -c "run ' + test + ' '
+		drozer_cmd = drozer_path + ' console connect -c "run ' + test + ' ' + '"'
 	process = subprocess.Popen(drozer_cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	input,output,error = process.stdin,process.stdout,process.stderr
 	#input.write("hello world !")
@@ -95,6 +95,6 @@ if __name__ == '__main__':
 	process_data("Directory Traversal using Content Provider", dirtraversal_info)
 	html += "</body></html>"
 	f = open("report.html","w")
-	f.write(html)
+	f.write(html.encode("utf-8"))
 	f.close()
 	print "[*] 'report.html' with testing results saved";
